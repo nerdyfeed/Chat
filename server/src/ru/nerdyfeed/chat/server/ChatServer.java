@@ -7,10 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ChatServer implements TCPConnectionListener {
 
     private static EULA n;
+    private static String userInput;
 
     public static void main(String[] args) {
         new ChatServer();
@@ -20,7 +22,7 @@ public class ChatServer implements TCPConnectionListener {
     private final ArrayList<TCPConnection> connections = new ArrayList<>();
 
     private ChatServer() {
-        System.out.println("Starting chat server version 0.2");
+        System.out.println("Starting chat server version" + getVersion());
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             System.out.println("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar server.jar\"");
         }
@@ -30,6 +32,7 @@ public class ChatServer implements TCPConnectionListener {
             n.b();
         } else {
             System.out.println("Server running!");
+            Commands();
             try (ServerSocket serverSocket = new ServerSocket(8189);){
                 while (true) {
                     try {
@@ -42,9 +45,23 @@ public class ChatServer implements TCPConnectionListener {
                 throw new RuntimeException(e);
             }
         }
-
+    }
+        // Commands runtime
+    void Commands() {
+        Scanner in = new Scanner(System.in);
+        userInput = in.nextLine();
+        if (userInput.equals("stop")) {
+            System.out.println("Server stopping...");
+            System.exit(0);
+        }
+        if (userInput.equals("reload")) {
+            //TODO something
+        }
     }
 
+    public String getVersion() {
+        return "0.3";
+    }
 
     @Override
     public synchronized void onConnectionReady(TCPConnection tcpConnection) {
