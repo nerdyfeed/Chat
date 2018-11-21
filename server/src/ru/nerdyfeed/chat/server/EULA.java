@@ -6,18 +6,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class EULA {
+
+class EULA {
 
     private final File b;
     private final boolean c;
 
-    public EULA(File file1) {
+    EULA(File file1) {
         this.b = file1;
         this.c = this.a(file1);
     }
 
     private boolean a(File file1) {
-        FileInputStream fileinputstream = null;
+        FileInputStream fileinputstream;
         boolean flag = false;
 
         try {
@@ -36,12 +37,12 @@ public class EULA {
         return flag;
     }
 
-    public boolean a() {
+    boolean a() {
         return this.c;
     }
 
-    public void b() {
-        FileOutputStream fileoutputstream = null;
+    void b() {
+        FileOutputStream fileoutputstream;
 
         try {
             Properties properties = new Properties();

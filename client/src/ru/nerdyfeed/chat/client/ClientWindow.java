@@ -11,23 +11,16 @@ import java.io.IOException;
 
 public class ClientWindow extends JFrame implements ActionListener, TCPConnectionListener {
 
-    private static final String IP_ADDR = "localhost"; // 54.93.87.62
+    private static final String IP_ADDRESS = "localhost"; // 54.93.87.62
     private static final int PORT = 8189;
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ClientWindow();
-            }
-        });
+        SwingUtilities.invokeLater(ClientWindow::new);
     }
     private final JTextArea textArea = new JTextArea();
-    private final JScrollPane scrollPane = new JScrollPane(textArea);
     private String fieldNickname;
-    private String isAdmin;
     private final JTextField fieldInput = new JTextField();
 
     private TCPConnection connection;
@@ -42,6 +35,7 @@ public class ClientWindow extends JFrame implements ActionListener, TCPConnectio
         }
 
         setSize(WIDTH, HEIGHT);
+        String isAdmin;
         if (fieldNickname.equals("admin")) {
             isAdmin = "(as superuser)";
         } else
@@ -52,6 +46,7 @@ public class ClientWindow extends JFrame implements ActionListener, TCPConnectio
         setLocationRelativeTo(null);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
+        JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setBounds(5,5,300,200);
         fieldInput.addActionListener(this);
         add(scrollPane);
@@ -59,7 +54,7 @@ public class ClientWindow extends JFrame implements ActionListener, TCPConnectio
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
-            connection = new TCPConnection(this, IP_ADDR, PORT);
+            connection = new TCPConnection(this, IP_ADDRESS, PORT);
         } catch (IOException e) {
             printMsg("Connection exception" + e);
         }
@@ -94,7 +89,6 @@ public class ClientWindow extends JFrame implements ActionListener, TCPConnectio
     public void onExсeption(TCPConnection tcpConnection, Exception e) {
         printMsg("Connection exception" + e);
     }
-
     private synchronized void printMsg(String msg) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
