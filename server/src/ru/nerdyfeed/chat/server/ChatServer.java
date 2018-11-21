@@ -22,7 +22,7 @@ public class ChatServer implements TCPConnectionListener {
     private final ArrayList<TCPConnection> connections = new ArrayList<>();
 
     private ChatServer() {
-        System.out.println("Starting chat server version" + getVersion());
+        System.out.println("Starting chat server version " + getVersion());
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             System.out.println("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar server.jar\"");
         }
@@ -32,7 +32,6 @@ public class ChatServer implements TCPConnectionListener {
             n.b();
         } else {
             System.out.println("Server running!");
-            Commands();
             try (ServerSocket serverSocket = new ServerSocket(8189);){
                 while (true) {
                     try {
@@ -41,10 +40,13 @@ public class ChatServer implements TCPConnectionListener {
                         System.out.println("TCPConnection exception: " + e);
                     }
                 }
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
         }
+
     }
         // Commands runtime
     void Commands() {
@@ -73,6 +75,10 @@ public class ChatServer implements TCPConnectionListener {
     @Override
     public synchronized void onReceiveString(TCPConnection tcpConnection, String value) {
         sendToAllConnections(value);
+        if (value.equals("admin: stop")) {
+            sendToAllConnections("Server was stopped by admin");
+            System.exit(0);
+        }
     }
 
     @Override
