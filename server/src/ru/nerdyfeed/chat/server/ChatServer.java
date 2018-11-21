@@ -12,9 +12,11 @@ import java.util.Date;
 public class ChatServer implements TCPConnectionListener {
     private Date date = new Date();
     private String INFO;
+    private String STATUS;
 
     {
         INFO = date + " [INFO] ";
+        STATUS = date + " [STATUS] ";
     }
 
     public static void main(String[] args) {
@@ -60,22 +62,19 @@ public class ChatServer implements TCPConnectionListener {
     public synchronized void onConnectionReady(TCPConnection tcpConnection) {
         connections.add(tcpConnection);
         //sendToAllConnections("Client connected: " + tcpConnection);
-        System.out.println("Client connected: " + tcpConnection);
+        System.out.println(INFO + "Client connected: " + tcpConnection);
     }
 
     @Override
     public synchronized void onReceiveString(TCPConnection tcpConnection, String value) {
         sendToAllConnections(value);
         switch(value) {
-            case "admin: stop":
-                sendToAllConnections("Server was stopped by Administrator");
+            case "admin: /stop":
+                sendToAllConnections(INFO + "Server was stopped by Administrator");
                 System.exit(0);
                 break;
-            case "admin: reload":
-                //TODO
-                break;
-            case "admin: bd":
-                //TODO sendToAllConnections("[ВНИМАНИЕ!] " + value);
+            case "admin: /status":
+                sendToAllConnections(STATUS + "Текущий сеанс: " + String.valueOf(date));
                 break;
         }
         /*if (value.equals("admin: stop")) {
@@ -89,7 +88,7 @@ public class ChatServer implements TCPConnectionListener {
     public synchronized void onDisconnect(TCPConnection tcpConnection) {
         connections.remove(tcpConnection);
         //sendToAllConnections("Client disconnected: " + tcpConnection);
-        System.out.println("Client disconnected: " + tcpConnection);
+        System.out.println(INFO + "Client disconnected: " + tcpConnection);
     }
 
     @Override
