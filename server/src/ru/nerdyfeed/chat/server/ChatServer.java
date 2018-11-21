@@ -83,8 +83,9 @@ public class ChatServer implements TCPConnectionListener {
                 break;
             case "admin: reload":
                 //TODO
+                break;
             case "admin: bd":
-                sendToAllConnections("[ВНИМАНИЕ!] " + value);
+                //TODO sendToAllConnections("[ВНИМАНИЕ!] " + value);
                 break;
         }
         /*if (value.equals("admin: stop")) {

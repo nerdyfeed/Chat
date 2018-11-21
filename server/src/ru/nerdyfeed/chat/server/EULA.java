@@ -48,7 +48,7 @@ public class EULA {
 
             fileoutputstream = new FileOutputStream(this.b);
             properties.setProperty("eula", "false");
-            properties.store(fileoutputstream, "By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).");
+            properties.store(fileoutputstream, "By changing the setting below to TRUE you are indicating your agreement to our EULA (site.ru).");
         } catch (IOException e) {
             System.out.println("Невозможно сохранить файл " + e);
         } finally {

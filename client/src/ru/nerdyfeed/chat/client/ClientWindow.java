@@ -27,6 +27,7 @@ public class ClientWindow extends JFrame implements ActionListener, TCPConnectio
     private final JTextArea textArea = new JTextArea();
     private final JScrollPane scrollPane = new JScrollPane(textArea);
     private String fieldNickname;
+    private String isAdmin;
     private final JTextField fieldInput = new JTextField();
 
     private TCPConnection connection;
@@ -39,8 +40,15 @@ public class ClientWindow extends JFrame implements ActionListener, TCPConnectio
                 fieldNickname = "Username";
             }
         }
+
         setSize(WIDTH, HEIGHT);
-        setTitle("Чатос" + " | " + fieldNickname);
+        if (fieldNickname.equals("admin")) {
+            isAdmin = "(as superuser)";
+        } else
+        {
+            isAdmin = "";
+        }
+        setTitle("RChat" + " | " + fieldNickname + " " + isAdmin);
         setLocationRelativeTo(null);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
