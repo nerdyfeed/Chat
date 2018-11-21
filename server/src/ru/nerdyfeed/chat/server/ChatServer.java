@@ -3,6 +3,7 @@ package ru.nerdyfeed.chat.server;
 import ru.nerdyfeed.chat.network.TCPConnection;
 import ru.nerdyfeed.chat.network.TCPConnectionListener;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -75,10 +76,21 @@ public class ChatServer implements TCPConnectionListener {
     @Override
     public synchronized void onReceiveString(TCPConnection tcpConnection, String value) {
         sendToAllConnections(value);
-        if (value.equals("admin: stop")) {
+        switch(value) {
+            case "admin: stop":
+                sendToAllConnections("Server was stopped by Administrator");
+                System.exit(0);
+                break;
+            case "admin: reload":
+                //TODO
+            case "admin: bd":
+                sendToAllConnections("[ВНИМАНИЕ!] " + value);
+                break;
+        }
+        /*if (value.equals("admin: stop")) {
             sendToAllConnections("Server was stopped by admin");
             System.exit(0);
-        }
+        }*/
     }
 
     @Override
