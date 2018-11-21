@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Properties;
 
 
@@ -18,6 +19,7 @@ class EULA {
     }
 
     private boolean a(File file1) {
+        Date date = new Date();
         FileInputStream fileinputstream;
         boolean flag = false;
 
@@ -31,7 +33,7 @@ class EULA {
             System.out.println("Невозможно сохранить файл " + file1);
             this.b();
         } finally {
-            System.out.println("Проверка файла EULA...");
+            System.out.println(date + " [INFO] Проверка файла EULA...");
         }
 
         return flag;

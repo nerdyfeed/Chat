@@ -3,6 +3,7 @@ package ru.nerdyfeed.chat.server;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Properties;
 
 class ServerProperties {
@@ -11,10 +12,11 @@ class ServerProperties {
 
     static void load() {
         Properties properties = new Properties();
+        Date date = new Date();
         try (InputStream is = new FileInputStream(new File("./server.properties"))) {
             properties.load(is);
             is.close();
-            System.out.println("[INFO] Конф загружен");
+            System.out.println(date + " [INFO] Конфигурация загружена");
             loaded = true;
         } catch (Exception e) {
             System.out.println("[ERROR] Ошибка загрузки!");

@@ -84,6 +84,7 @@ public class ChatServer implements TCPConnectionListener {
         }*/
     }
 
+
     @Override
     public synchronized void onDisconnect(TCPConnection tcpConnection) {
         connections.remove(tcpConnection);
