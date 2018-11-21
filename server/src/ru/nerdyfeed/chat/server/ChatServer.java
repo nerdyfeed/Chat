@@ -55,7 +55,7 @@ public class ChatServer implements TCPConnectionListener {
             System.exit(0);
         }
         if (userInput.equals("reload")) {
-            //TODO something
+            System.out.println("Not set!");
         }
     }
 
