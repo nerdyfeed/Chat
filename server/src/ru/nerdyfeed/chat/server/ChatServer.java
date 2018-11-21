@@ -32,6 +32,11 @@ public class ChatServer implements TCPConnectionListener {
             System.out.println("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar server.jar\"");
         }
         EULA n = new EULA(new File("eula.txt"));
+        try {
+            new ServerProperties();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (!n.a()) {
             System.out.println("Необходимо принять соглашение EULA. Откройте файл eula.txt для получения информации.");
             n.b();

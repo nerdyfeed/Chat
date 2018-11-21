@@ -25,7 +25,6 @@ class EULA {
 
         try {
             Properties properties = new Properties();
-
             fileinputstream = new FileInputStream(file1);
             properties.load(fileinputstream);
             flag = Boolean.parseBoolean(properties.getProperty("eula", "false"));
@@ -45,10 +44,8 @@ class EULA {
 
     void b() {
         FileOutputStream fileoutputstream;
-
         try {
             Properties properties = new Properties();
-
             fileoutputstream = new FileOutputStream(this.b);
             properties.setProperty("eula", "false");
             properties.store(fileoutputstream, "By changing the setting below to TRUE you are indicating your agreement to our EULA (site.ru).");
